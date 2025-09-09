@@ -31,6 +31,16 @@ class HT_Design_Assets_Server {
         flush_rewrite_rules();
     }
 
+    //Move to ht-design for testing
+    // 	// upload directory path
+    // $this->define( 'HT_DESIGN_ASSETS_DIR', trailingslashit( $base_dir ) );
+    // // upload directory url - use virtual path if server mode enabled
+    // $server_mode = get_option( 'htd_use_server_mode', false );
+    // $url = $server_mode 
+    // 	? home_url( '/ht-design-assets/' )
+    // 	: trailingslashit( $base_url );
+    // $this->define( 'HT_DESIGN_ASSETS_URL', $url );
+
     public function deactivate() {
         error_log('HT Design Assets Server: Plugin deactivated');
         delete_option( 'htd_use_server_mode' );
