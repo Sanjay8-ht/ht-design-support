@@ -11,6 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class HT_Design_Assets_Server {
     
     public function __construct() {
+        error_log('HT Design Assets Server: Constructor called');
         add_action( 'init', array( $this, 'add_rewrite' ) );
         add_action( 'template_redirect', array( $this, 'serve_assets' ) );
         register_activation_hook( __FILE__, array( $this, 'activate' ) );
