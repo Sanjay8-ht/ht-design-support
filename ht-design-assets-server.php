@@ -12,6 +12,16 @@ class HT_Design_Assets_Server {
     
     public function __construct() {
         add_action( 'init', array( $this, 'serve_assets' ) );
+        register_activation_hook( __FILE__, array( $this, 'activate' ) );
+        register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
+    }
+    
+    public function activate() {
+        update_option( 'htd_use_server_mode', true );
+    }
+    
+    public function deactivate() {
+        delete_option( 'htd_use_server_mode' );
     }
     
     public function serve_assets() {
