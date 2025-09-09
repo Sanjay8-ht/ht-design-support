@@ -18,23 +18,28 @@ class HT_Design_Assets_Server {
     }
     
     public function add_rewrite() {
+        error_log('HT Design Assets Server: Adding rewrite rules');
         add_rewrite_rule( '^ht-design-assets/([^/]+)$', 'index.php?htd_asset=$matches[1]', 'top' );
         add_rewrite_tag( '%htd_asset%', '([^&]+)' );
     }
 
     public function activate() {
+        error_log('HT Design Assets Server: Plugin activated');
         update_option( 'htd_use_server_mode', true );
         $this->add_rewrite();
         flush_rewrite_rules();
     }
 
     public function deactivate() {
+        error_log('HT Design Assets Server: Plugin deactivated');
         delete_option( 'htd_use_server_mode' );
         flush_rewrite_rules();
     }
 
     public function serve_assets() {
+        error_log('HT Design Assets Server: serve_assets called');
         $file = get_query_var( 'htd_asset' );
+        error_log('HT Design Assets Server: htd_asset query var = ' . $file);
         if ( ! $file ) {
             return;
         }
@@ -61,10 +66,12 @@ class HT_Design_Assets_Server {
         }
 
         if ( ! $found_path ) {
+            error_log('HT Design Assets Server: File not found: ' . $file);
             status_header(404);
             exit;
         }
 
+        error_log('HT Design Assets Server: Serving file: ' . $found_path);
         status_header(200);
         header( 'Content-Type: ' . ( $ext === 'js' ? 'application/javascript; charset=UTF-8' : 'text/css; charset=UTF-8' ) );
         header( 'Cache-Control: public, max-age=2592000' );
