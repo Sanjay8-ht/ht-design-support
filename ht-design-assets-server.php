@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class HT_Design_Assets_Server {
     
     public function __construct() {
-        add_action( 'init', array( $this, 'serve_assets' ) );
+        add_action( 'template_redirect', array( $this, 'serve_assets' ) );
         register_activation_hook( __FILE__, array( $this, 'activate' ) );
         register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
     }
